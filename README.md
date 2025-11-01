@@ -107,14 +107,6 @@ Resampling done for:
 * Matplotlib / Seaborn
 * Jupyter Notebook
 
----
-
-## 🗣️ Interview Summary
-
-> I used hourly weather data of Delhi (1996–2017) and forecasted temperature using MA, SARIMAX, and LSTM. After resampling hourly data to daily and monthly, I used MA for daily forecasts and SARIMAX for monthly seasonal forecasting. Finally, I used an LSTM model to capture long-term non-linear dependencies and compared RMSE values and forecast plots.
-
----
-
 ## 📁 Notebook Contains
 
 * Data exploration & cleaning
