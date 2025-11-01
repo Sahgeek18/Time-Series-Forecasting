@@ -1,126 +1,125 @@
-# 🌦️ Weather Forecasting using LSTMis project builds a **deep learning-based weather forecasting model** that uses a **hybrid LSTMLSTMcture** to predict future temperature values from historical time‑series data.
+# 🌦️ Weather Forecasting using MA, SARIMAX & LSTM
 
-The workflow includes:
+This project forecasts temperature for **Delhi (1996–2017)** using **classical time series models** and a **deep learning model**.
 
-* Data collection & preprocessing
-* Time‑series feature engineering
-* Model development using **CNN + LSTM layers**
-* Training, evaluation & visualization
-* Future value forecasting
+Models used:
 
----
-
-## 🧠 Project Motivation
-
-Weather forecasting is a classic time‑series problem. Traditional models like ARIMA assume linearity and struggle with seasonality, noisy patterns, and nonlinear fluctuations. Deep learning—especially **Recurrent Neural Networks like LSTM**—can identify complex temporal dependencies.
-
-To enhance prediction quality further, **CNN layers** are added to extract local patterns before feeding the data into the LSTM.
-
-> **LSTM = tLSTMleatemporal learner (LSTM) use **monthly historical weather data**. Examples of features:
-
-* Temperature
-* Humidity
-* Pressure
-* Wind speed
-* Rainfall
-
-### 📅 Why Monthly Data?
-
-| Frequency     | Use Case                     | Pros                                        | Cons                          |
-| ------------- | ---------------------------- | ------------------------------------------- | ----------------------------- |
-| **Hourly**    | Short‑term forecasting       | Fine granularity                            | Very noisy, heavy computation |
-| **Daily**     | Short/medium‑term            | Balanced detail                             | Still noisy                   |
-| **Monthly** ✅ | **Long‑term climate trends** | Smooth, less noise, stable pattern learning | Lower short‑term precision    |
-
-➡️ **We choose monthly data** to capture broader seasonal trends and reduce noise.
+* ✅ **MA (Moving Average)** — baseline smoothing model for short-term forecasting
+* ✅ **SARIMAX** — seasonal ARIMA with exogenous capability for monthly forecasting
+* ✅ **LSTM Neural Network** — used at the end to capture long-term temporal patterns
 
 ---
 
-## 🏗️ Model Architecture
+## 🎯 Project Objective
 
-### ✅ CNN‑LSTM Hybrid Model
+To forecast temperatures effectively by comparing:
 
-```
-Input → Conv1D → MaxPooling → LSTM → DInput → LSTM → Dense → Outputurpose |
-|---|---|
-| **Conv1D** | Extract short‑term/local | **LSTM** | Capture long-term dependencies & sequence memory |
-| **Dense** | Final prediction |lized time‑series values
-- Sliding window sequence creation
-- Train‑test split
-- **MSE loss + Adam optimizer**
-- 30–100 epochs depending on convergence
-
-Performance metrics:
-- MSE
-- MAE
-- RMSE
-- Forecast visualization
+* Classical statistical models (MA & SARIMAX)
+* Deep Learning (LSTM)
 
 ---
 
-## 📊 Results & Visualization
-The model predicts future temperature values and we compare:
-- Actual vs Predicted graphs
-- Loss curve
+## 📊 Dataset
 
-> Demonstrates stable learning and captures upward/downward climate trends.
+* **Location:** Delhi, India
+* **Frequency:** Hourly data (1996–2017)
+* **Target Variable:** Temperature (°C)
 
----
+Resampling done for:
 
-## 🎯 Key Learning Outcomes
-- Understanding time‑series modeling
-- Why **hybrid deep learning models** outperform single architectures
-- Importance of data frequency selection
-- CNN + LSTM synergy for sequence tasks
-
----
-
-## 🧩 CNN‑LSTM Toy Example (Concept Demo)
-A small synthetic time‑series was also trained to show model behavior on simple patterns:
-```
-
-Synthetic sine wave + noise → LSTM → Next value prediction
-
-```
-This LSTMmonstrate architecture intuition before training on real weather data.
+| Frequency       | Purpose                                 |
+| --------------- | --------------------------------------- |
+| Hourly          | Raw data source                         |
+| Daily Average   | Smoother trends, used with MA model     |
+| Monthly Average | Seasonal forecasting, used with SARIMAX |
 
 ---
 
-## 🚀 Future Improvement Ideas
-- Multivariate weather forecasting (humidity, pressure, wind, etc.)
-- Attention‑based LSTM / Transformers
-- Seasonal decomposition + neural forecasting
-- Real‑time deployment with Streamlit/Flask
-- Integrate satellite/weather APIs
+## 🧪 Methodology
+
+### ✅ Exploratory Data Analysis (EDA)
+
+* Hourly → Daily → Monthly trend visualization
+* Seasonality patterns
+* Trend & yearly variations
+
+### ✅ Stationarity Check
+
+* Augmented Dickey-Fuller test
+* Differencing applied to achieve stationarity
+
+### ✅ Models Applied
+
+| Model                   | Purpose                                      |
+| ----------------------- | -------------------------------------------- |
+| **MA (Moving Average)** | Simple baseline for daily prediction         |
+| **SARIMAX**             | Handles trend + seasonality for monthly data |
+| **LSTM**                | Captures complex long-term time dependencies |
+
+### ✅ Model Training Steps
+
+* Train-test split
+* For LSTM:
+
+  * Data normalization
+  * Sliding window sequence creation
+  * Neural network training
 
 ---
 
-## 📦 Tech Stack
-- Python
-- NumPy, Pandas
-- TensorFlow / Keras
-- Matplotlib / Seaborn
-- Jupyter Notebook
+## 📈 Evaluation
+
+* **Metric:** RMSE (Root Mean Squared Error)
+* Plots for:
+
+  * Actual vs Predicted values
+  * Forecast visualization
+  * Loss curve for LSTM
+
+> SARIMAX handled seasonal structure well, while LSTM improved long-term modeling.
 
 ---
 
-## 🙌 Acknowledgements
-This project is part of my deep learning journey focusing on time‑series prediction and hybrid neural network architectures.
+## 🧠 Key Learnings
+
+* Importance of resampling (hourly → daily → monthly)
+* Stationarity is critical for ARIMA-based models
+* SARIMAX handles seasonality better than simple MA
+* LSTM effectively learns non-linear temporal patterns
 
 ---
 
-### 📁 File provided in this project
-The notebook contains:
-- Data preprocessing
-- CNN‑LSTM implementation
-- Training & evaluation
-- Forecast visualization
+## 🚀 Future Work
+
+* Add humidity, pressure, wind as features in SARIMAX & LSTM
+* Compare with **Prophet / XGBoost** for time-series
+* Deploy via **Streamlit** with real-time updates
+* Tune LSTM architecture further (more layers, GRU comparison)
 
 ---
 
-## 💬 Contact / Further Discussion
-If you'd like to understand architecture intuition, toy example code, or forecasting extensions — feel free to connect!
+## 🛠️ Tech Stack
 
-> *This README is designed to be viva‑friendly and interview‑ready ✅*
+* Python
+* Pandas, NumPy
+* Statsmodels
+* TensorFlow / Keras
+* Matplotlib / Seaborn
+* Jupyter Notebook
 
-```
+---
+
+## 🗣️ Interview Summary
+
+> I used hourly weather data of Delhi (1996–2017) and forecasted temperature using MA, SARIMAX, and LSTM. After resampling hourly data to daily and monthly, I used MA for daily forecasts and SARIMAX for monthly seasonal forecasting. Finally, I used an LSTM model to capture long-term non-linear dependencies and compared RMSE values and forecast plots.
+
+---
+
+## 📁 Notebook Contains
+
+* Data exploration & cleaning
+* Resampling (hourly → daily → monthly)
+* Stationarity testing & differencing
+* MA & SARIMAX modeling
+* LSTM modeling
+* Evaluation & visualization
